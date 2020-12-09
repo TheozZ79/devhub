@@ -785,7 +785,9 @@ function _getCardPropsForItem(
               ((subjectType === 'Repository' ||
                 subjectType === 'RepositoryVulnerabilityAlert') &&
                 repoURL) ||
-              (subjectType === 'User' && users[0] && users[0].html_url) ||
+              (subjectType === 'User' && event.type === 'MemberEvent'
+                ? repoURL
+                : users?.[0]?.html_url) ||
               (branchOrTagName &&
                 ((isTagMainEvent &&
                   `${repoURL}/releases/tag/${branchOrTagName}`) ||
@@ -803,9 +805,11 @@ function _getCardPropsForItem(
                     ? branchOrTagName
                     : undefined,
                 issueOrPullRequestNumber: undefined,
-                ownerIsKnown: false,
+                ownerIsKnown:
+                  isBranchMainEvent || isTagMainEvent ? ownerIsKnown : false,
                 repoFullName: repoOwnerName,
-                repoIsKnown: false,
+                repoIsKnown:
+                  isBranchMainEvent || isTagMainEvent ? ownerIsKnown : false,
               })!,
               repo: { owner: repoOwnerName!, name: repoName!, url: repoURL },
             },
@@ -1027,7 +1031,9 @@ function _getCardPropsForItem(
         title: trimNewLinesAndSpaces(subject.title, 120),
         type,
         githubApp:
-          isPrivate && !notification.enhanced
+          constants.ENABLE_GITHUB_APP_SUPPORT &&
+          isPrivate &&
+          !notification.enhanced
             ? {
                 ownerId: repo.owner && repo.owner.id,
                 repoId: repo.id,

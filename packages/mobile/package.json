@@ -1,12 +1,12 @@
 {
   "name": "@devhub/mobile",
-  "version": "0.101.0",
+  "version": "0.102.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
     "clean": "cd .",
     "compile": "tsc -b --incremental",
-    "format": "prettier --write './*.{js,jsx,ts,tsx}'",
+    "format": "prettier --write './*.{js,jsx,ts,tsx,json}'",
     "ios": "react-native run-ios",
     "lint": "eslint src --no-error-on-unmatched-pattern",
     "prepare": "cd .. && yarn patch-package",
@@ -17,7 +17,8 @@
     "xcode": "open ios/devhub.xcworkspace"
   },
   "dependencies": {
-    "@devhub/components": "0.101.0",
+    "@devhub/core": "0.102.0",
+    "@devhub/components": "0.102.0",
     "@react-native-firebase/analytics": "10.1.1",
     "@react-native-firebase/app": "10.1.0",
     "bugsnag-react-native": "2.23.10",
@@ -41,7 +42,9 @@
     "jest": "26.6.3",
     "metro-react-native-babel-preset": "0.64.0",
     "react-native-codegen": "0.0.6",
-    "react-test-renderer": "17.0.1"
+    "react-native-flipper": "0.68.0",
+    "react-test-renderer": "17.0.1",
+    "redux-flipper": "1.4.2"
   },
   "jest": {
     "preset": "react-native"

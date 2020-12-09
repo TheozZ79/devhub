@@ -190,6 +190,9 @@ const DialogView = React.memo(
                 options && options.cancelable === false
                   ? undefined
                   : () => {
+                      buttons
+                        ?.find((button) => button?.style === 'cancel')
+                        ?.onPress?.('')
                       hide()
                     }
               }
@@ -339,7 +342,10 @@ const DialogView = React.memo(
                             >
                               <Button
                                 autoFocus={
-                                  buttonType === 'primary' && !disabled
+                                  Platform.OS === 'web' &&
+                                  !(renderInput && options) &&
+                                  buttonType === 'primary' &&
+                                  !disabled
                                 }
                                 disabled={disabled}
                                 onPress={() => {
